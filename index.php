@@ -1,5 +1,5 @@
 <?php
-$stdName ="Salman";
+$stdName ="Taimoor";
 $stdAge = 20;   
 $stdGrade = "A";    
 $stdNic = "1234567890"; 
