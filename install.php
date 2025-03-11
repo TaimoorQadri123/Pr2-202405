@@ -1,4 +1,4 @@
-$<!doctype html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>Title</title>
@@ -16,19 +16,20 @@ $<!doctype html>
       
      <div class="form-group">
        <label for="">Name</label>
-       <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+       <input type="text" name="name" id="" class="form-control" placeholder="" aria-describedby="helpId">
      </div>
      <div class="form-group">
        <label for="">Age</label>
-       <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+       <input type="text" name="age" id="" class="form-control" placeholder="" aria-describedby="helpId">
      </div>
      <div class="form-group">
        <label for="">Salary</label>
-       <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+       <input type="text" name="salary" id="" class="form-control" placeholder="" aria-describedby="helpId">
      </div>
      <div class="form-group">
        <label for="">loan Amount</label>
        <select class="form-control" name="" id="">
+         <option>select</option>
          <option>200000</option>
          <option>300000</option>
          <option>500000</option>
@@ -37,6 +38,7 @@ $<!doctype html>
      <div class="form-group">
        <label for="">installment duration</label>
        <select class="form-control" name="" id="">
+       <option>select</option>
          <option value= "2">2 years</option>
          <option value= "3">3 years</option>
          <option value= "4">4 years</option>
@@ -49,3 +51,14 @@ $<!doctype html>
 
   </body>
 </html>
+<?php
+if(isset($_post["sub"])){
+    $username = $_POST["name"];
+    $userage = $_POST["age"];
+    $usersalary = $_POST["salary"];
+    echo " ". $username . $userage ;
+    
+
+
+}
+?>
