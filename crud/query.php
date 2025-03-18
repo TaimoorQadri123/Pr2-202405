@@ -14,7 +14,7 @@ if(isset($_POST['registerUser'])){
     }
     if(empty($userEmail)){
         $userEmailErr = "Email is Required";
-    }
+    }else
     if(empty($userPassword)){
         $userPasswordErr = "Password is Required";
     }
