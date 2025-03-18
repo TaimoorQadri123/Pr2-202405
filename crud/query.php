@@ -38,7 +38,7 @@ if(isset($_POST['registerUser'])){
     }
 
  if(empty($userNameErr) && empty($userEmailErr) && empty($userPasswordErr) && empty($userConfirmPasswordErr)){
-    $query = $pdo->prepare("insert into users(name,email,password) values (:uName , :uEmail , :uPassword)");
+    $query = $pdo->prepare("insert into user(name,email,pssword) values (:uName , :uEmail , :uPassword)");
     $query->bindParam('uName',$userName);
     $query->bindParam('uEmail',$userEmail);
     $query->bindParam('uPassword',$userPassword);
