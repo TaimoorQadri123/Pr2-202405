@@ -21,9 +21,9 @@ if(isset($_POST['registerUser'])){
         $user = $query->fetch(PDO::FETCH_ASSOC);
         // print_r($user);
         // die();
-        // id($user){
-        //     $userEmailErr = "Email is already Exist";
-        // }
+        if($user){
+            $userEmailErr = "Email is already Exist";
+        }
     }
     if(empty($userPassword)){
         $userPasswordErr = "Password is Required";
