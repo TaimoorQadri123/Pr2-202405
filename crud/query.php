@@ -103,4 +103,40 @@ if(isset($_POST['registerUser'])){
 
 
 
+
+// login.php 
+
+if(isset($_POST['login'])){
+    $userEmail = $_POST['uEmail'];
+    $userPassword = $_POST['uPassword'];
+    if(empty($userEmail)){
+        $userEmailErr = "Email s Required";
+    }
+    else{
+        $query = $pdo->prepare("SELECT * FROM user WHERE email = :uEmail");
+        $query->bindParam(':uEmail',$userEmail);
+        $query->execute();
+        $user = $query->fetch(PDO::FETCH_ASSOC);
+        if($user){
+            if($user['pssword'] == $userPassword){
+                if($user['role_id'] == 1){
+                    echo "<script>location.assign('login.php?success=login successfully admin')</script>";
+                }
+                else if($user['role_id'] == 2){
+                    echo "<script>location.assign('login.php?success=login successfully user')</script>";
+                }
+            }
+            else{
+                $userPasswordErr = "password does not matched";
+            }
+        }
+        else{
+            $userEmailErr = "user not found";
+        }
+    }
+    if(empty($userPassword)){
+        $userPasswordErr = "password is required";
+    }
+}
+
 ?>
