@@ -1,6 +1,6 @@
 <?php
 include("dbcon.php");
-
+session_start();
 
 $userName = $userEmail = $userPassword = $userConfirmPassword = "" ;
 $userNameErr= $userEmailErr = $userPasswordErr = $userConfirmPasswordErr = "" ;
@@ -120,10 +120,20 @@ if(isset($_POST['login'])){
         if($user){
             if($user['pssword'] == $userPassword){
                 if($user['role_id'] == 1){
-                    echo "<script>location.assign('login.php?success=login successfully admin')</script>";
+                    $_SESSION['adminId'] = $user['id'];
+                    $_SESSION['adminEmail'] = $user['email'];
+                    $_SESSION['adminName'] = $user['name'];
+                    $_SESSION['adminRole'] = $user['role_id'];
+
+                    echo "<script>location.assign('adminPanel/index.php?success=login successfully admin')</script>";
                 }
                 else if($user['role_id'] == 2){
-                    echo "<script>location.assign('login.php?success=login successfully user')</script>";
+                    $_SESSION['userId'] = $user['id'];
+                    $_SESSION['userEmail'] = $user['email'];
+                    $_SESSION['userName'] = $user['name'];
+                    $_SESSION['userRole'] = $user['role_id'];
+
+                    echo "<script>location.assign('index.php?success=login successfully user')</script>";
                 }
             }
             else{
