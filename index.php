@@ -1,31 +1,16 @@
-<?php
-$stdName ="Taimoor";
-$stdAge = 20;   
-$stdGrade = "A";    
-$stdNic = "1234567890"; 
-
-echo $stdName ." ". $stdAge ." ". $stdGrade ." ". $stdNic;    
-
-            //Two way of using H1 in php
-
-// echo "<h1>".$stdName."</h1>"
+<?php 
+include("php/query.php");
 ?>
-
-<h1><?php echo $stdName?></h1>
-<h1><?php
-
-$num1 = 10;
-$num2 = 20;
-$num3 = 30;
-
-$add = $num1 + $num2 + $num3;
-$mul = $num1 * $num2 * $num3;
-$sub = $num1 - $num2 - $num3;
-$div = $num1 / $num2 / $num3;
-
-echo "Addition result is = " . $add . "<br>";
-echo "Multiplication result is = " . $mul . "<br>";
-echo "Subtraction result is = " . $sub . "<br>";
-echo "Division result is = " . $div . "<br>";
-?></h1>
-
+<h1>Hello this is web page</h1>
+<?php 
+if(isset($_SESSION['userEmail'])){
+?>
+   <h1><?php echo $_SESSION['userName'] . " ". $_SESSION['userEmail']  ?></h1>
+   <a href="logout.php">logout</a>
+   <?php
+}else{
+?>
+<a href="login.php">login</a>
+<?php 
+}
+?>
