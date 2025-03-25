@@ -48,6 +48,18 @@ include("components/header.php");
             <!-- Sale & Revenue End -->
 
 
+            <div class="container">
+            <?php 
+if(isset($_SESSION['adminEmail'])){
+?>
+   <h1><?php echo $_SESSION['adminName'] . " ". $_SESSION['adminEmail']  ?></h1>
+   <a href="logout.php">logout</a>
+  
+<?php 
+}
+?>
+            </div>
+
             <!-- Sales Chart Start -->
             <div class="container-fluid pt-4 px-4">
                 <div class="row g-4">
