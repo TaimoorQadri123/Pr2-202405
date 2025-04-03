@@ -34,6 +34,8 @@ include("components/header.php");
                                 <div class="mb-3">
                                     <label for="exampleInputPassword1" class="form-label">Category Image</label>
 
+                                    <small class="text-danger"><?php echo $categoryImageNameErr?></small>
+
                                     <input type="file" class="form-control">
                                     <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
                                 </div>
