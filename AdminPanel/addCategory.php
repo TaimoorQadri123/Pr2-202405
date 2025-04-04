@@ -14,7 +14,7 @@ include("components/header.php");
                     <!-- <div class="col-sm-12 col-xl-6"> -->
                         <div class="bg-light rounded h-100 p-4">
                             <h6 class="mb-4">Add Category Form</h6>
-                            <form method ="post" enctype="multipart/form-data">
+                            <form method ="post"  enctype="multipart/form-data">
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Category Name</label>
                                     <input value="<?php echo $categoryName?>" name="cName" type="text" class="form-control" id="exampleInputEmail1"
@@ -36,7 +36,7 @@ include("components/header.php");
 
                                     <small class="text-danger"><?php echo $categoryImageNameErr?></small>
 
-                                    <input type="file" class="form-control">
+                                    <input type="file" class="form-control" name ="cImage">
                                     <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
                                 </div>
                                 <!-- <div class="mb-3 form-check">

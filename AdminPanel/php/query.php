@@ -21,12 +21,12 @@ if(isset($_POST['addCategory'])){
         $categoryImageNameErr = "Image is Required"; 
 
     }
-    else(
+    else{
         $format = ["jpg","jpeg","png","webp","svg"];
         if(!in_array($extension,$format)){
             $categoryImageNameErr = "Invalid Extension";
         }
-    )
+    }
     if(empty($categoryNameErr) && empty($categoryDesErr) && empty($categoryImageNameErr)){
         if(move_uploaded_file($categoryImageTmpName,$destination)){
             $query = $pdo->prepare("insert into categories (name,image,description) values (:name ,:image,:des)");
@@ -34,7 +34,11 @@ if(isset($_POST['addCategory'])){
             $query->bindParam(':des',$categoryDes);
             $query->bindParam(':image',$categoryImageName);
             $query->execute();
-            echo "<script>alert('category added'):</script>";
+            echo "<script>alert('category added');</script>";
+            // echo "<script>alert('Category added successfully!'); location.reload();</script>";
+            // echo "<script>alert('Category added successfully!'); location.assign('your_page.php');</script>";
+
+
 
         }
     } 
