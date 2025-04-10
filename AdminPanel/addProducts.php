@@ -29,15 +29,7 @@ include("components/header.php");
                                     <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Products Image</label>
-
-                                    <small class="text-danger"><?php echo $productImageNameErr?></small>
-
-                                    <input type="file" class="form-control" name ="pImage">
-                                    <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-control"> Products Pricey</label>
+                                    <label for="exampleInputPassword1" class="form-control"> Products Price</label>
                                          <input class="form-control" value="<?php echo $productPrice?>" name="pPrice"type="text">
                                         <small class="text-danger"><?php echo $productPriceErr?></small>
 
@@ -50,6 +42,16 @@ include("components/header.php");
 
                                     <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
                                 </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Products Image</label>
+
+                                    <small class="text-danger"><?php echo $productImageNameErr?></small>
+
+                                    <input type="file" class="form-control" name ="pImage">
+                                    <!-- <input type="text" class="form-control" id="exampleInputPassword1"> -->
+                                </div>
+                                
+                               
                                 <div class="mb-3">
                                  <label for="">Select Category</label>
                                  <select class="form-control" name="cId" id="">
