@@ -86,5 +86,18 @@ if(isset($_GET['categoryId'])){
     $query->execute();
     echo "<script>alert('Category deleted');location.assign('viewCategory.php')</script>";
 
+
+
+}
+
+
+
+// addproducts 
+
+$productName = $productPrice = $productDes = $productQuantity = $productImageName = $categoryId = ""; 
+$productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $productImageNameErr = $categoryIdErr = "";
+
+if(isset($_POST['addProduct'])){
+    
 }
 ?>
