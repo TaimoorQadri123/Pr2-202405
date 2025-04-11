@@ -107,53 +107,59 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
         $categoryId =$_POST['cId'];
         $productImageName = strtolower($_FILES['pImage']['name']);
         $productImageTmpName = $_FILES['pImage']['tmp_name'];
+        $extension = pathinfo($productImageName,PATHINFO_EXTENSION);
+        $destination= "images/".$productImageName;
         if(empty($productName)){
             $productNameErr = "product Name is Required"; 
+        }
+        if(empty($productPrice)){
+            $productPriceErr = "product Price is Required"; 
+        }
+        if(empty($productQuantity)){
+            $productQuantityErr = "product Quantity is Required"; 
         }
         if(empty($productDes)){
             $productDesErr = "product Description is Required"; 
         }
-        
-        // $categoryImageName = strtolower($_FILES['cImage']['name']);
-        // $categoryImageTmpName = $_FILES['cImage']['tmp_name'];
-        // $extension = pathinfo($categoryImageName,PATHINFO_EXTENSION);
-        // $destination= "images/".$categoryImageName;
-        if(empty($categoryName)){
-            $categoryNameErr = "Category Name is Required"; 
-        }
-        if(empty($categoryDes)){
-            $categoryDesErr = "Category Description is Required"; 
-        }
-        if(empty($categoryImageName)){
-            $categoryImageNameErr = "Image is Required"; 
+        if(empty($productImageName)){
+            $productImageNameErr = "Image is Required"; 
     
+        }
+        if(empty($categoryId)){
+            $categoryIdErr = "cateory is Required"; 
         }
         else{
             $format = ["jpg","jpeg","png","webp","svg"];
             if(!in_array($extension,$format)){
-                $categoryImageNameErr = "Invalid Extension";
+                $productImageNameErr = "Invalid Extension";
             }
         }
-        if(empty($categoryNameErr) && empty($categoryDesErr) && empty($categoryImageNameErr)){
-            if(move_uploaded_file($categoryImageTmpName,$destination)){
-                $query = $pdo->prepare("insert into categories (name,image,description) values (:name ,:image,:des)");
-                $query->bindParam(':name',$categoryName);
-                $query->bindParam(':des',$categoryDes);
-                $query->bindParam(':image',$categoryImageName);
+
+        if(empty($productNameErr) && empty($productPriceErr) && empty($productQuantityErr) && empty($productDesErr) && empty($productImageNameErr) && empty($categoryIdErr)){
+            if(move_uploaded_file($productImageTmpName,$destination)){
+                $query = $pdo->prepare("insert into products (name,price,description,qty,image,c_id) values (:name ,:price ,:des ,:qty ,:image,:cId)");
+                $query->bindParam(':name',$productName);
+                $query->bindParam(':price',$productPrice);
+                $query->bindParam(':des',$productDes);
+                $query->bindParam(':qty',$productQuantity);
+                $query->bindParam(':image',$productImageName);
+                $query->bindParam(':cId',$categoryId);           
                 $query->execute();
-                echo "<script>alert('category added');</script>";
-                // echo "<script>alert('Category added successfully!'); location.reload();</script>";
-                // echo "<script>alert('Category added successfully!'); location.assign('your_page.php');</script>";
+                echo "<script>alert('product added');</script>";
     
     
     
             }
-        } 
+        }
+        
+        
     
-    }
-   
+
+    
+        }
+    
 
 
 
-// }
+
 ?>
