@@ -163,56 +163,111 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
 //    updat product 
 
 
+// if(isset($_POST['updateProduct'])){
+//     $productId = $_GET['pId'];
+//     $productName = $_POST['pName'];
+//     $productPrice = $_POST['pPrice'];
+//     $productQuantity = $_POST['pQuantity'];
+//     $productDes = $_POST['pDes'];
+//     $categoryId =$_POST['cId'];
+
+//     $query = $pdo->prepare("update products set name = :pName ,price = :pPrice,Quantity = :pQuantity , description = :pDes , c_id = :cId where id = :pId");
+//     if(!empty($_FILES['pImage']['name'])){
+//         $productImageName = $_FILES['pImage']['name'];
+//         $productImageTmpName = $_FILES['pImage']['tmp_name'];
+//         $extension = pathinfo($productImageName,PATHINFO_EXTENSION);
+//         $destination= "images/".$productImageName;
+//         $format = ["jpg","jpeg","png","webp","svg"];
+//         if(in_array($extension,$format)){
+//             if(move_uploaded_file($productImageTmpName,$destination)){
+//                 $query = $pdo->prepare("update products set name = :pName ,price = :pPrice, Quantity = :pQuantity , description = :pDes  ,image = :pImage where id = :pId");
+//                 $query->bindParam('cImage',$productImageName);
+//             }
+
+//         }
+//         else{
+//             echo "<script>alert('Invalid extension')</script>";
+//         }
+
+//     }
+//     $query->bindParam('cName',$productName);
+//     $query->bindParam('pPrice',$productPrice);
+//     $query->bindParam('pQuantity',$productQuantity);
+
+//     $query->bindParam('cDes',$productDes);
+//     $query->bindParam('cId',$categoryId);
+//     $query->execute();
+//     echo "<script>alert('Product updated');location.assign('viewproducts.php')</script>";
+
+
+// }
+    
 if(isset($_POST['updateProduct'])){
     $productId = $_GET['pId'];
     $productName = $_POST['pName'];
     $productPrice = $_POST['pPrice'];
     $productQuantity = $_POST['pQuantity'];
     $productDes = $_POST['pDes'];
-    $categoryId =$_POST['cId'];
+    $categoryId = $_POST['cId'];
 
-    $query = $pdo->prepare("update products set name = :pName ,price = :pPrice,Quantity = :pQuantity , description = :pDes , c_id = :cId where id = :pId");
     if(!empty($_FILES['pImage']['name'])){
         $productImageName = $_FILES['pImage']['name'];
         $productImageTmpName = $_FILES['pImage']['tmp_name'];
-        $extension = pathinfo($productImageName,PATHINFO_EXTENSION);
-        $destination= "images/".$productImageName;
+        $extension = pathinfo($productImageName, PATHINFO_EXTENSION);
+        $destination = "images/".$productImageName;
         $format = ["jpg","jpeg","png","webp","svg"];
         if(in_array($extension,$format)){
             if(move_uploaded_file($productImageTmpName,$destination)){
-                $query = $pdo->prepare("update products set name = :pName ,price = :pPrice, Quantity = :pQuantity , description = :pDes  ,image = :pImage where id = :pId");
-                $query->bindParam('cImage',$productImageName);
+                $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, image = :pImage, c_id = :cId WHERE id = :pId");
+                $query->bindParam(':pImage', $productImageName);
             }
-
-        }
-        else{
+        } else {
             echo "<script>alert('Invalid extension')</script>";
+            exit;
         }
-
+    } else {
+        $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, c_id = :cId WHERE id = :pId");
     }
-    $query->bindParam('cName',$productName);
-    $query->bindParam('pPrice',$productPrice);
-    $query->bindParam('pQuantity',$productQuantity);
 
-    $query->bindParam('cDes',$productDes);
-    $query->bindParam('cId',$categoryId);
+    $query->bindParam(':pName', $productName);
+    $query->bindParam(':pPrice', $productPrice);
+    $query->bindParam(':pQuantity', $productQuantity);
+    $query->bindParam(':pDes', $productDes);
+    $query->bindParam(':cId', $categoryId);
+    $query->bindParam(':pId', $productId);
+
     $query->execute();
     echo "<script>alert('Product updated');location.assign('viewproducts.php')</script>";
-
-
 }
-    
+
+
+
+
+
+
+
 
 // remove product 
+// if(isset($_GET['productId'])){
+//     $categoryId = $_GET['productId'];
+//     $query = $pdo->prepare("delete from product where id = :pId");
+//     $query->bindParam('cId',$productId);
+//     $query->execute();
+//     echo "<script>alert('Product deleted');location.assign('viewproducts.php')</script>";
+
+
+
+// }
+
+
+
 if(isset($_GET['productId'])){
-    $categoryId = $_GET['productId'];
-    $query = $pdo->prepare("delete from product where id = :pId");
-    $query->bindParam('cId',$productId);
+    $productId = $_GET['productId'];
+    $query = $pdo->prepare("DELETE FROM products WHERE id = :pId");
+    $query->bindParam(':pId', $productId);
     $query->execute();
     echo "<script>alert('Product deleted');location.assign('viewproducts.php')</script>";
-
-
-
 }
-    
+
+
 ?>
