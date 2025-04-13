@@ -165,6 +165,7 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
 
 // if(isset($_POST['updateProduct'])){
 //     $productId = $_GET['pId'];
+
 //     $productName = $_POST['pName'];
 //     $productPrice = $_POST['pPrice'];
 //     $productQuantity = $_POST['pQuantity'];
@@ -181,7 +182,7 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
 //         if(in_array($extension,$format)){
 //             if(move_uploaded_file($productImageTmpName,$destination)){
 //                 $query = $pdo->prepare("update products set name = :pName ,price = :pPrice, Quantity = :pQuantity , description = :pDes  ,image = :pImage where id = :pId");
-//                 $query->bindParam('cImage',$productImageName);
+//                 $query->bindParam('pImage',$productImageName);
 //             }
 
 //         }
@@ -190,20 +191,24 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
 //         }
 
 //     }
-//     $query->bindParam('cName',$productName);
+//     $query->bindParam('pName',$productName);
 //     $query->bindParam('pPrice',$productPrice);
 //     $query->bindParam('pQuantity',$productQuantity);
 
-//     $query->bindParam('cDes',$productDes);
+//     $query->bindParam('pDes',$productDes);
 //     $query->bindParam('cId',$categoryId);
+    
+    
+
+
 //     $query->execute();
 //     echo "<script>alert('Product updated');location.assign('viewproducts.php')</script>";
 
 
 // }
-    
+ 
 if(isset($_POST['updateProduct'])){
-    $productId = $_GET['pId'];
+    $productId = $_POST['pId']; // FIXED
     $productName = $_POST['pName'];
     $productPrice = $_POST['pPrice'];
     $productQuantity = $_POST['pQuantity'];
@@ -213,13 +218,23 @@ if(isset($_POST['updateProduct'])){
     if(!empty($_FILES['pImage']['name'])){
         $productImageName = $_FILES['pImage']['name'];
         $productImageTmpName = $_FILES['pImage']['tmp_name'];
-        $extension = pathinfo($productImageName, PATHINFO_EXTENSION);
+        $extension = pathinfo($productImageName,PATHINFO_EXTENSION);
         $destination = "images/".$productImageName;
-        $format = ["jpg","jpeg","png","webp","svg"];
-        if(in_array($extension,$format)){
-            if(move_uploaded_file($productImageTmpName,$destination)){
+        $format = ["jpg", "jpeg", "png", "webp", "svg"];
+        
+        if(in_array($extension, $format)){
+            if(move_uploaded_file($productImageTmpName, $destination)){
                 $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, image = :pImage, c_id = :cId WHERE id = :pId");
-                $query->bindParam(':pImage', $productImageName);
+                $query->bindParam('pName', $productName);
+                $query->bindParam('pPrice', $productPrice);
+                $query->bindParam('pQuantity', $productQuantity);
+                $query->bindParam('pDes', $productDes);
+                $query->bindParam('pImage', $productImageName);
+                $query->bindParam('cId', $categoryId);
+                $query->bindParam('pId', $productId);
+                $query->execute();
+                echo "<script>alert('Product updated with image');location.assign('viewproducts.php')</script>";
+                exit;
             }
         } else {
             echo "<script>alert('Invalid extension')</script>";
@@ -227,27 +242,30 @@ if(isset($_POST['updateProduct'])){
         }
     } else {
         $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, c_id = :cId WHERE id = :pId");
+        $query->bindParam('pName', $productName);
+        $query->bindParam('pPrice', $productPrice);
+        $query->bindParam('pQuantity', $productQuantity);
+        $query->bindParam('pDes', $productDes);
+        $query->bindParam('cId', $categoryId);
+        $query->bindParam('pId', $productId);
+        $query->execute();
+        echo "<script>alert('Product updated');location.assign('viewproducts.php')</script>";
+        exit;
     }
-
-    $query->bindParam(':pName', $productName);
-    $query->bindParam(':pPrice', $productPrice);
-    $query->bindParam(':pQuantity', $productQuantity);
-    $query->bindParam(':pDes', $productDes);
-    $query->bindParam(':cId', $categoryId);
-    $query->bindParam(':pId', $productId);
-
-    $query->execute();
-    echo "<script>alert('Product updated');location.assign('viewproducts.php')</script>";
 }
 
 
 
 
-
-
-
-
 // remove product 
+if(isset($_GET['productId'])){
+    $productId = $_GET['productId'];
+    $query = $pdo->prepare("DELETE FROM products WHERE id = :pId");
+    $query->bindParam(':pId', $productId);
+    $query->execute();
+    echo "<script>alert('Product deleted');location.assign('viewproducts.php')</script>";
+}
+
 // if(isset($_GET['productId'])){
 //     $categoryId = $_GET['productId'];
 //     $query = $pdo->prepare("delete from product where id = :pId");
@@ -258,16 +276,4 @@ if(isset($_POST['updateProduct'])){
 
 
 // }
-
-
-
-if(isset($_GET['productId'])){
-    $productId = $_GET['productId'];
-    $query = $pdo->prepare("DELETE FROM products WHERE id = :pId");
-    $query->bindParam(':pId', $productId);
-    $query->execute();
-    echo "<script>alert('Product deleted');location.assign('viewproducts.php')</script>";
-}
-
-
 ?>
