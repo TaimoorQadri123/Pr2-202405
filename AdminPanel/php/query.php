@@ -208,7 +208,7 @@ $productNameErr = $productPriceErr = $productDesErr = $productQuantityErr = $pro
 // }
  
 if(isset($_POST['updateProduct'])){
-    $productId = $_POST['pId']; // FIXED
+    $productId = $_GET['pId']; // FIXED
     $productName = $_POST['pName'];
     $productPrice = $_POST['pPrice'];
     $productQuantity = $_POST['pQuantity'];
@@ -224,10 +224,10 @@ if(isset($_POST['updateProduct'])){
         
         if(in_array($extension, $format)){
             if(move_uploaded_file($productImageTmpName, $destination)){
-                $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, image = :pImage, c_id = :cId WHERE id = :pId");
+                $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, qty = :pqty, description = :pDes, image = :pImage, c_id = :cId WHERE id = :pId");
                 $query->bindParam('pName', $productName);
                 $query->bindParam('pPrice', $productPrice);
-                $query->bindParam('pQuantity', $productQuantity);
+                $query->bindParam('pqty', $productQuantity);
                 $query->bindParam('pDes', $productDes);
                 $query->bindParam('pImage', $productImageName);
                 $query->bindParam('cId', $categoryId);
@@ -241,10 +241,10 @@ if(isset($_POST['updateProduct'])){
             exit;
         }
     } else {
-        $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, Quantity = :pQuantity, description = :pDes, c_id = :cId WHERE id = :pId");
+        $query = $pdo->prepare("UPDATE products SET name = :pName, price = :pPrice, qty = :pqty, description = :pDes, c_id = :cId WHERE id = :pId");
         $query->bindParam('pName', $productName);
         $query->bindParam('pPrice', $productPrice);
-        $query->bindParam('pQuantity', $productQuantity);
+        $query->bindParam('pqty', $productQuantity);
         $query->bindParam('pDes', $productDes);
         $query->bindParam('cId', $categoryId);
         $query->bindParam('pId', $productId);
@@ -253,6 +253,61 @@ if(isset($_POST['updateProduct'])){
         exit;
     }
 }
+
+
+
+// ----- update Product ------ //
+
+// if (isset($_POST['updateProduct'])){
+//     $productId = $_GET['pId'];
+//     $productName = $_POST['pName'];
+//     $productDes = $_POST['pDes'];
+//     $productPrice = $_POST['pPrice'];
+//     $productQuantity = $_POST['pQty'];
+//     $categoryId = $_POST['cId'];
+//     $productImageName = "";
+//     $query = $pdo->prepare("UPDATE products set 
+//     id = :pId, 
+//     name = :pName,
+//     image = :pImage,
+//     description = :pDes,
+//     qty = :pQty, 
+//     price = :pPrice, 
+//     c_id = :c_id");
+//     if(!empty($_FILES['pImage']['name'])){
+//         $productImageName = $_FILES['pImage']['name'];
+//         $productImageTmpName = $_FILES['pImage']['tmp_name'];
+//         $extension = pathinfo($productImageName, PATHINFO_EXTENSION);
+//         $destination = "images/" . $productImageName;
+//         $format = ["jpg", "png", "jpeg", "webp", "svg", "gif"];
+//         if(in_array($extension, $format)){
+//             if(move_uploaded_file($productImageTmpName, $destination)){
+//                 $query = $pdo->prepare("update products set name = 
+//                 :pName, 
+//                 description = :pDes, 
+//                 image = :pImage , 
+//                 price = pPrice ,
+//                 qty = pQty where id = :pId");
+//                 $query->bindParam('pImage', $productImageName);
+//             }
+//         }
+//         else{
+//             echo "<script>alert('invalid image format');</script>";
+//         }
+//     }
+//      $query->bindParam(':pId', $productId);
+//      $query->bindParam('pName',$productName);
+//      $query->bindParam('pDes',$productDes);
+//      $query->bindParam('pPrice',$productPrice);
+//      $query->bindParam('pQty',$productQuantity);
+//      $query->bindParam('c_id',$categoryId);
+//      $query->bindParam('pImage',$productImageName);
+//      $query->execute();
+//      echo "<script>alert('Product Updated');location.assign('viewProduct.php')</script>";
+
+// }
+
+
 
 
 
