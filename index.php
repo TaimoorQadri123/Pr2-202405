@@ -177,22 +177,24 @@ include('components/header.php');
 				
                 <?php
 				$query = $pdo->query("select * from categories limit 3");
-				$allCategories = $query->
+				$allCategories = $query->fetchAll(PDO::FETCH_ASSOC);
+				foreach ($allCategories as $category){
 				?>
 
 				<div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
 					<!-- Block1 -->
 					<div class="block1 wrap-pic-w">
-						<img src="images/banner-03.jpg" alt="IMG-BANNER">
+						<img height="500px" src="AdminPanel/images/<?php echo $category['image']?>" alt="IMG-BANNER">
 
-						<a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+						<a href="product.php" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 							<div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Accessories
+									<?php echo $category['name']?>
 								</span>
 
 								<span class="block1-info stext-102 trans-04">
-									New Trend
+								<?php echo $category['price']?>
+									
 								</span>
 							</div>
 
@@ -205,7 +207,9 @@ include('components/header.php');
 					</div>
 				</div>
                 
-				<?php?>
+				<?php
+				}
+				?>
 
 			</div>
 		</div>
