@@ -8,8 +8,17 @@ include("php/query.php");
 		if(isset($_SESSION['cart'])){
 
 			$count = count($_SESSION['cart']);
+			$productIdsArray = array_column($_SESSION['cart'],'productId');
+			if(in_array($_POST['pId'],$productIdsArray)){
+				echo "<script>alert('product is already added to the cart ')</script>";
+			}
+			else{
+
+
+
 			$_SESSION['cart'][$count] =  array("productId"=>$_POST['pId'],"productName"=>$_POST['pName'],"productPrice"=>$_POST['pPrice'],"productQty"=>$_POST['num-product'],"productImage"=>$_POST['pImage']);
 			echo "<script>alert('product added to the cart')</script>";
+		}
 		}
 		else{
 			$_SESSION['cart'][0] = array("productId"=>$_POST['pId'],"productName"=>$_POST['pName'],"productPrice"=>$_POST['pPrice'],"productQty"=>$_POST['num-product'],"productImage"=>$_POST['pImage']);
@@ -49,31 +58,44 @@ include("php/query.php");
 									<th class="column-5">Total</th>
 								</tr>
 
+								<?php 
+								if(isset($_SESSION['cart'])){
+									foreach($_SESSION['cart'] as $key => $value){
+										
+								
+								?>
 								<tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1">
-											<img src="images/item-cart-04.jpg" alt="IMG">
+											<img src="AdminPanel/images/<?php echo $value['productImage'] ?>" alt="IMG">
 										</div>
 									</td>
-									<td class="column-2">Fresh Strawberries</td>
-									<td class="column-3">$ 36.00</td>
+									<td class="column-2"><?php echo $value['productName'] ?></td>
+									<td class="column-3">$ <?php echo $value['productPrice'] ?></td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
 
-											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="1">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $value['productQty'] ?>">
 
 											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-plus"></i>
 											</div>
 										</div>
 									</td>
-									<td class="column-5">$ 36.00</td>
+									<td class="column-5">$ <?php echo $value['productPrice']*$value['productQty'] ?></td>
+									<td class="column-6"><a href="?prId=<?php echo $value['productId']  ?>" class="btn btn-danger">Remove</a>
+									</td>
+
 								</tr>
 
-								<tr class="table_row">
+								<?php
+									}
+								}
+								?>
+								<!-- <tr class="table_row">
 									<td class="column-1">
 										<div class="how-itemcart1">
 											<img src="images/item-cart-05.jpg" alt="IMG">
@@ -95,7 +117,7 @@ include("php/query.php");
 										</div>
 									</td>
 									<td class="column-5">$ 16.00</td>
-								</tr>
+								</tr> -->
 							</table>
 						</div>
 

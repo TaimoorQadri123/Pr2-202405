@@ -98,9 +98,9 @@ include('components/header.php');
 						 
 							<div class="flex-w flex-r-m p-b-10">
 								<input type="hidden" name="pId" value="<?php echo $product['id'] ?>">
-								<input type="hidden" name="pId" value="<?php echo $product['name'] ?>">
-								<input type="hidden" name="pId" value="<?php echo $product['price'] ?>">
-								<input type="hidden" name="pId" value="<?php echo $product['image'] ?>">
+								<input type="hidden" name="pName" value="<?php echo $product['name'] ?>">
+								<input type="hidden" name="pPrice" value="<?php echo $product['price'] ?>">
+								<input type="hidden" name="pImage" value="<?php echo $product['image'] ?>">
 
 								<div class="size-203 flex-c-m respon6">
 									Size
