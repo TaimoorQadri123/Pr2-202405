@@ -10,14 +10,14 @@ include("php/query.php");
 			$count = count($_SESSION['cart']);
 			$productIdsArray = array_column($_SESSION['cart'],'productId');
 			if(in_array($_POST['pId'],$productIdsArray)){
-				echo "<script>alert('product is already added to the cart ')</script>";
+				echo "<script>alert('product is already added to the cart ');location.assign('index.php')</script>";
 			}
 			else{
 
 
 
 			$_SESSION['cart'][$count] =  array("productId"=>$_POST['pId'],"productName"=>$_POST['pName'],"productPrice"=>$_POST['pPrice'],"productQty"=>$_POST['num-product'],"productImage"=>$_POST['pImage']);
-			echo "<script>alert('product added to the cart')</script>";
+			echo "<script>alert('product added to the cart');location.assign('index.php')</script>";
 		}
 		}
 		else{
@@ -41,6 +41,12 @@ include("php/query.php");
 		</div>
 	</div>
 		
+
+	<?php
+	if(isset($_SESSION['cart'])){
+
+	
+	?>
 
 	<!-- Shoping Cart -->
 	<form class="bg0 p-t-75 p-b-85">
@@ -73,7 +79,7 @@ include("php/query.php");
 									<td class="column-2"><?php echo $value['productName'] ?></td>
 									<td class="column-3">$ <?php echo $value['productPrice'] ?></td>
 									<td class="column-4">
-										<div class="wrap-num-product flex-w m-l-auto m-r-0">
+										<div class="wrap-num-product flex-w m-l-auto m-r-0 qtyBox">
 											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
 												<i class="fs-16 zmdi zmdi-minus"></i>
 											</div>
@@ -224,6 +230,21 @@ include("php/query.php");
 		</div>
 	</form>
 		
+	<?php
+	}
+	else{
+	?>
+      
+	  <div class="container p-5">
+
+	  <h1 class="text-center p-5">your cart is empty</h1>
+	  </div>
+
+
+
+<?php
+}
+?>
 	
 		
 
