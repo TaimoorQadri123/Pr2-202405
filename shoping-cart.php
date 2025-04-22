@@ -25,6 +25,22 @@ include("php/query.php");
 			echo "<script>alert('product added to the cart')</script>";
 		}
 	}
+
+    //   update qty 
+
+	if(isset($_POST['incDec'])){
+		$productId =$_POST['prId'];
+		$productQty =$_POST['prQty'];
+		foreach($_SESSION['cart'] as $key => $value){
+			if($value['productId'] == $productId){
+				$_SESSION['cart'][$key]['productQty'] = $productQty ;
+			}
+		}
+
+	}
+ 
+
+
 	?>
 
 	<!-- breadcrumb -->
@@ -80,14 +96,16 @@ include("php/query.php");
 									<td class="column-3">$ <?php echo $value['productPrice'] ?></td>
 									<td class="column-4">
 										<div class="wrap-num-product flex-w m-l-auto m-r-0 qtyBox">
-											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-minus"></i>
+											<div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m dec">
+												<input type="hidden" class="pId" value="<?php echo $value['productId']?>">
+												<i class="fs-16 zmdi zmdi-minus "></i>
 											</div>
 
 											<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product1" value="<?php echo $value['productQty'] ?>">
 
-											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-												<i class="fs-16 zmdi zmdi-plus"></i>
+											<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m inc">
+												
+												<i class="fs-16 zmdi zmdi-plus "></i>
 											</div>
 										</div>
 									</td>
