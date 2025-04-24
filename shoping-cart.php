@@ -65,11 +65,21 @@ include("php/query.php");
 
 		$totalAmount = 0;
 		$totalQty = 0;
-		foreach($_SESSION['cart'] as $key => $value ){
-			$totalAmount += $value['productPrice']*$value{'productQty'};
-			$totalQty += $value['productQty'];
 
+
+		foreach ($_SESSION['cart'] as $key => $value) {
+			$totalAmount += $value['productPrice'] * $value['productQty'];
+			$totalQty += $value['productQty'];
 		}
+		
+
+		// foreach($_SESSION['cart'] as $key => $value ){
+		// 	$totalAmount += $value['productPrice'] *$value{'productQty'};
+		// 	$totalQty += $value['productQty'];
+
+		// }
+
+
 		$invoiceQuery = $pdo->prepare("insert into invoices (u_id,u_name,u_email,totalqty,totalAmount) values (:u_id,:u_name,:u_email,:totalqty,:totalAmount)");
 		$invoiceQuery->bindParam('u_id',$userId);
 		$invoiceQuery->bindParam('u_name',$userName);
