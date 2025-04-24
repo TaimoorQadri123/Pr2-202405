@@ -40,6 +40,47 @@ include("php/query.php");
 	}
  
 
+// checkout 
+	if(isset($_POST['checkout'])){
+		$userId =$_SESSION['userId'];
+		$userName =$_SESSION['userName'];
+		$userEmail =$_SESSION['userEmail'];
+		foreach($_SESSION['cart'] as $key => $value){
+			$productId =$value['productId'];
+			$productName =$value['productName'];
+			$productPrice =$value['productPrice'];
+			$productQty =$value['productQty'];
+			$query= $pdo->prepare("insert into orders (u_id, u_name ,u_email, p_id ,p_name ,p_price ,p_qty) values ( :u_id, :u_name , :u_email, :p_id , :p_name , :p_price , :p_qty)");
+			$query->bindParam('u_id',$userId);
+			$query->bindParam('u_name',$userName);
+			$query->bindParam('u_email',$userEmail);
+			$query->bindParam('p_id',$productId);
+			$query->bindParam('p_name',$productName);
+			$query->bindParam('p_pice',$productPrice);
+			$query->bindParam('p_qty',$productQty);
+			$query->execute();
+
+
+		}
+
+		$totalAmount = 0;
+		$totalQty = 0;
+		foreach($_SESSION['cart'] as $key => $value ){
+			$totalAmount += $value['productPrice']*$value{'productQty'};
+			$totalQty += $value['productQty'];
+
+		}
+		$invoiceQuery = $pdo->prepare("insert into invoices (u_id,u_name,u_email,totalqty,totalAmount) values (:u_id,:u_name,:u_email,:totalqty,:totalAmount)");
+		$invoiceQuery->bindParam('u_id',$userId);
+		$invoiceQuery->bindParam('u_name',$userName);
+		$invoiceQuery->bindParam('u_email',$userEmail);
+		$invoiceQuery->bindParam('totalAmount',$totalAmount);
+		$invoiceQuery->bindParam('totalqty',$totalQty);
+		$invoiceQuery->execute();
+		echo "<script>alert('order added suceesdully');location.assign('index.php')</script>";
+unset($_SESSION['cart']);
+
+	}
 
 	?>
 
@@ -239,9 +280,23 @@ include("php/query.php");
 							</div>
 						</div>
 
-						<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+						<?php
+						
+						if(isset($_SESSION['userEmail'])){
+							
+							?>
+						<button name="checkout" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
 							Proceed to Checkout
 						</button>
+						<?php
+						
+						}
+						else{
+							?>
+							<a href="login.php" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">Proceed to Checkout</a>
+							<?php
+						}
+						?>
 					</div>
 				</div>
 			</div>

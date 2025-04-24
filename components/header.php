@@ -52,14 +52,29 @@
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Help & FAQs
 						</a>
+						<?php
+						if(isset($_SESSION['userEmail'])){
+						?>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							My Account
+						<?php echo $_SESSION['userName']; ?>	
 						</a>
+						<?php
+						}
+						else{
+							?>
+							<a href="login.php" class="flex-c-m trans-04 p-lr-25">login</a>
+							<?php
+ 						}
+						 ?>
 
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							EN
+						
+
+<?php if(isset($_SESSION['userEmail'])){?>
+						<a href="logout.php" class="flex-c-m trans-04 p-lr-25">
+							logout
 						</a>
+						<?php }?>
 
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							USD
@@ -93,7 +108,7 @@
 							</li>
 
 							<li class="label1" data-label1="hot">
-								<a href="shoping-cart.html">Features</a>
+								<a href="shoping-cart.php">Features</a>
 							</li>
 
 							<li>
