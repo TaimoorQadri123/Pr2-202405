@@ -95,9 +95,9 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="index.php">Home</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="index.php">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
@@ -154,7 +154,7 @@
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->		
 			<div class="logo-mobile">
-				<a href="index.html"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
+				<a href="index.php"><img src="images/icons/logo-01.png" alt="IMG-LOGO"></a>
 			</div>
 
 			<!-- Icon header -->
@@ -213,9 +213,9 @@
 
 			<ul class="main-menu-m">
 				<li>
-					<a href="index.html">Home</a>
+					<a href="index.php">Home</a>
 					<ul class="sub-menu-m">
-						<li><a href="index.html">Homepage 1</a></li>
+						<li><a href="index.php">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
 						<li><a href="home-03.html">Homepage 3</a></li>
 					</ul>
@@ -229,7 +229,7 @@
 				</li>
 
 				<li>
-					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
+					<a href="shoping-cart.php" class="label1 rs1" data-label1="hot">Features</a>
 				</li>
 
 				<li>
@@ -329,11 +329,11 @@
 				</div>
 
 					<div class="header-cart-buttons flex-w w-full">
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
 						</a>
 
-						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
+						<a href="shoping-cart.php" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-b-10">
 							Check Out
 						</a>
 					</div>

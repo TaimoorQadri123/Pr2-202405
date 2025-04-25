@@ -56,7 +56,7 @@ include("php/query.php");
 			$query->bindParam('u_email',$userEmail);
 			$query->bindParam('p_id',$productId);
 			$query->bindParam('p_name',$productName);
-			$query->bindParam('p_pice',$productPrice);
+			$query->bindParam('p_price',$productPrice);
 			$query->bindParam('p_qty',$productQty);
 			$query->execute();
 
@@ -88,9 +88,39 @@ include("php/query.php");
 		$invoiceQuery->bindParam('totalqty',$totalQty);
 		$invoiceQuery->execute();
 		echo "<script>alert('order added suceesdully');location.assign('index.php')</script>";
-unset($_SESSION['cart']);
+       unset($_SESSION['cart']);
 
 	}
+
+
+
+
+    //  validation 
+
+	$country = $state = $zip = "";
+	$countryErr = $stateErr = $zipErr = "";
+
+	if(isset($_POST['checkout'])){
+
+		$country = $_POST['time'];
+		$state = $_POST['state'];
+		$zip = $_POST['postcode'];
+
+		if(empty($country)){
+			$countryErr = "Country is Required" ;
+		}
+		
+		if(empty($state)){
+			$stateErr = "state is Required" ;
+		}
+		
+		if(empty($zip)){
+			$zipErr = "state is Required" ;
+		}
+	}
+
+	 
+
 
 	?>
 
@@ -116,7 +146,7 @@ unset($_SESSION['cart']);
 	?>
 
 	<!-- Shoping Cart -->
-	<form class="bg0 p-t-75 p-b-85">
+	<form class="bg0 p-t-75 p-b-85" method="POST">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -249,21 +279,35 @@ unset($_SESSION['cart']);
 										Calculate Shipping
 									</span>
 
+
+                            
+
+
+
+
+
 									<div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-										<select class="js-select2" name="time">
-											<option>Select a country...</option>
-											<option>USA</option>
-											<option>UK</option>
-										</select>
+										<select class="js-select2" name="time" value="<?php echo $country ?>">
+										<option value="">Select a country...</option>
+                                        <option value="USA">USA</option>
+                                        <option value="UK">UK</option>
+                                        </select>
+										
+
 										<div class="dropDownSelect2"></div>
+										<small id="helpId" class="text-danger"><?php echo $countryErr?></small>
 									</div>
 
 									<div class="bor8 bg0 m-b-12">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" placeholder="State /  country">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state" value="<?php echo $state ?>" placeholder="State /  country">
+										<small id="helpId" class="text-danger"><?php echo $stateErr?></small>
+
 									</div>
 
 									<div class="bor8 bg0 m-b-22">
-										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" placeholder="Postcode / Zip">
+										<input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode" value="<?php echo $zip ?>" placeholder="Postcode / Zip">
+										<small id="helpId" class="text-danger"><?php echo $zipErr?></small>
+
 									</div>
 									
 									<div class="flex-w">
